@@ -58,12 +58,10 @@ class App extends Component {
             border:'1px solid blue',
             padding: '8px'
         }
-    return (
-      <div className="App">
-            <h1>Hi, I'm a React App</h1>
-            <p>This is really working!</p>
-            <button style={styles} onClick={this.togglePersonHandler}>Switch Button</button>
-            {this.state.showPerson ? 
+        let persons = null;
+
+        if (this.state.showPerson) {
+            persons = (
                 <div>
                     <Person name={this.state.person[0].name} age={this.state.person[0].age} />
                     <Person name={this.state.person[1].name} age={this.state.person[1].age} click={this.swithNameHandler.bind(this, "in Paragraph")} changed={this.nameChangedHandler}>My Hobbies: Acting </Person>
@@ -75,7 +73,17 @@ class App extends Component {
                         </div>
                         <Output uname={this.state.uname} />
                     </div>
-                </div> : null
+                </div>
+            );
+        }
+
+    return (
+      <div className="App">
+            <h1>Hi, I'm a React App</h1>
+            <p>This is really working!</p>
+            <button style={styles} onClick={this.togglePersonHandler}>Switch Button</button>
+            {
+                persons
             }
 
         </div>
