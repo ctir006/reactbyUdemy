@@ -1,37 +1,49 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
-import Output from './Components/UserOutput';
-import Input from './Components/UserInput';
+//import Output from './Components/UserOutput';
+//import Input from './Components/UserInput';
 import './App.css';
 
 class App extends Component {
     state = {
         person:[
-            { name:"Chitti", age:23 },
-            { name:"Venkat", age:24 },
-            { name:"Prakash", age:24}
+            { id: 'asfd1', name:"Chitti", age:23 },
+            { id:'asdf2', name:"Venkat", age:24 },
+            { id:'asdf3', name:"Prakash", age:24}
         ],
         uname: 'Sanju',
         showPerson: false
     }
 
     deletePersonHandler = (personIndex) => {
-        const persons = this.state.person;
+        //const persons = this.state.person;
+        const persons = [...this.state.person];
         persons.splice(personIndex, 1);
         this.setState({ person: persons });
 
     }
 
-    nameChangedHandler = (event) => {
-        this.setState({
-            person: [
-                { name: "Chitti", age: 23 },
-                { name: event.target.value, age: 24 },
-                { name: "Prakash", age: 24 }
-            ]
+    nameChangedHandler = (event, id) => {
+        console.log("In nameChangedHandler");
+        const personIndex = this.state.person.findIndex(p => {
+            return p.id === id;
+        });
 
+        const per = {
+            ...this.state.person[personIndex]
+        };
+
+        per.name = event.target.value;
+
+        const person = [...this.state.person];
+
+        person[personIndex] = per;
+
+        this.setState({
+            person: person
           }
         );
+        console.log(this.state.person);
     }
 
     inputChangeHandler = (event) => {
@@ -63,7 +75,9 @@ class App extends Component {
                         return <Person
                             click={()=>this.deletePersonHandler(index)}
                             name={per.name}
-                            age={per.age} />
+                            key={per.id}
+                            age={per.age}
+                            changed={(event) => this.nameChangedHandler(event, per.id)} />
                     })}
                 </div>
             );
