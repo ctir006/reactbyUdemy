@@ -79,10 +79,12 @@ class App extends Component {
 
     render() {
         const styles = {
-            backgroundcolor:'white',
+            backgroundColor: 'green',
+            color:'white',
             font:'inherit',
             border:'1px solid blue',
-            padding: '8px'
+            padding: '8px',
+            cursor: 'pointer'
         }
 
         let persons = null;
@@ -100,6 +102,15 @@ class App extends Component {
                     })}
                 </div>
             );
+            styles.backgroundColor = 'red';
+        }
+
+        const classes = [];
+        if (this.state.person.length <= 2) {
+            classes.push('red');
+        }
+        if (this.state.person.length <= 1) {
+            classes.push('bold');
         }
 
         const charList = this.state.userInput.split('').map((ch, index) => {
@@ -109,7 +120,7 @@ class App extends Component {
     return (
       <div className="App">
             <h1>Hi, I'm a React App</h1>
-            <p>This is really working!</p>
+            <p className={classes.join(' ')}>This is really working!</p>
             <h3><Validation len={this.state.length} /></h3>
             <input type='text' onChange={this.textLength} value={this.state.userInput} /><br /><br />
             {charList}

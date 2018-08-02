@@ -12,3 +12,11 @@
     cursor: pointer;
     margin-top: 5px;
 }
+
+.red{
+    color: red;
+}
+
+.bold{
+    font-weight: bold;
+}
