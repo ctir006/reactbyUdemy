@@ -15,15 +15,11 @@ class App extends Component {
         showPerson: false
     }
 
-    swithNameHandler = (newName) => {
-        this.setState({
-            person: [
-                { name: newName, age: 23 },
-                { name: "Venkat", age: 24 },
-                { name: "Prakash", age: 24 }
-            ]
-        }
-        );
+    deletePersonHandler = (personIndex) => {
+        const persons = this.state.person;
+        persons.splice(personIndex, 1);
+        this.setState({ person: persons });
+
     }
 
     nameChangedHandler = (event) => {
@@ -63,16 +59,12 @@ class App extends Component {
         if (this.state.showPerson) {
             persons = (
                 <div>
-                    <Person name={this.state.person[0].name} age={this.state.person[0].age} />
-                    <Person name={this.state.person[1].name} age={this.state.person[1].age} click={this.swithNameHandler.bind(this, "in Paragraph")} changed={this.nameChangedHandler}>My Hobbies: Acting </Person>
-                    <Person name={this.state.person[2].name} age={this.state.person[2].age} />
-                    <div>
-                        <Output uname={this.state.uname} />
-                        <div>
-                            <Input inChange={this.inputChangeHandler} />
-                        </div>
-                        <Output uname={this.state.uname} />
-                    </div>
+                    {this.state.person.map((per,index) => {
+                        return <Person
+                            click={()=>this.deletePersonHandler(index)}
+                            name={per.name}
+                            age={per.age} />
+                    })}
                 </div>
             );
         }
