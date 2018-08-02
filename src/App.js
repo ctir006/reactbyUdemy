@@ -16,7 +16,7 @@ class App extends Component {
         uname: 'Sanju',
         showPerson: false,
         length: 0,
-        charArray: []
+        userInput: ''
     }
 
     deletePersonHandler = (personIndex) => {
@@ -28,9 +28,10 @@ class App extends Component {
     }
 
     deleteCharHangler = (charIndex) => {
-        const charArray = [...this.state.charArray];
-        charArray.splice(charIndex, 1);
-        this.setState({ charArray:charArray });
+        const text = this.state.userInput.split('');
+        text.splice(charIndex, 1);
+        const updatedText = text.join('');
+        this.setState({ userInput: updatedText });
     }
 
     nameChangedHandler = (event, id) => {
@@ -72,7 +73,7 @@ class App extends Component {
     textLength = (event) => {
         this.setState({
             length: event.target.value.length,
-            charArray: event.target.value.split('')
+            userInput: event.target.value,
         })
     }
 
@@ -100,28 +101,18 @@ class App extends Component {
                 </div>
             );
         }
-        let chars = null;
-        if (this.state.charArray) {
-            chars = (
-                <div>
-                    {this.state.charArray.map((c, index) => {
-                        return <CharComponent
-                            char={c}
-                            key={index}
-                            clicked={(event) => this.deleteCharHangler(event,index)}
-                            />
-                    })}
-                </div>
-            );
-        }
+
+        const charList = this.state.userInput.split('').map((ch, index) => {
+            return <CharComponent char={ch} key={index} clicked={()=>this.deleteCharHangler(index)} />
+        });
 
     return (
       <div className="App">
             <h1>Hi, I'm a React App</h1>
             <p>This is really working!</p>
             <h3><Validation len={this.state.length} /></h3>
-            <input type='text' onChange={this.textLength} value={this.state.charArray.join('')} /><br /><br />
-            {chars}
+            <input type='text' onChange={this.textLength} value={this.state.userInput} /><br /><br />
+            {charList}
             <button style={styles} onClick={this.togglePersonHandler}>Switch Button</button>
             {
                 persons
