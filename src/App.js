@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 import Validation from './Components/ValidationComponent';
 import CharComponent from './Components/CharComponent';
 //import Output from './Components/UserOutput';
 //import Input from './Components/UserInput';
-import './App.css';
+import classes from './App.css';
 
 class App extends Component {
     state = {
@@ -79,24 +78,10 @@ class App extends Component {
     }
 
     render() {
-        const styles = {
-            backgroundColor: 'green',
-            color:'white',
-            font:'inherit',
-            border:'1px solid blue',
-            padding: '8px',
-            cursor: 'pointer',
-            ':hover': {
-                backgroundColor: 'lightgreen',
-                color: 'black'
-            }
-        }
-
         let persons = null;
-
+        let btnClass = '';
         if (this.state.showPerson) {
             persons = (
-                <StyleRoot>
                 <div>
                     {this.state.person.map((per,index) => {
                         return <Person
@@ -107,21 +92,17 @@ class App extends Component {
                             changed={(event) => this.nameChangedHandler(event, per.id)} />
                     })}
                 </div>
-                </StyleRoot>
             );
-            styles.backgroundColor = 'red';
-            styles[':hover'] = {
-                backgroundColor: 'salmon',
-                color: 'black'
-            }
+            btnClass = classes.Red;
+            
         }
 
-        const classes = [];
+        const assignedClasses = [];
         if (this.state.person.length <= 2) {
-            classes.push('red');
+            assignedClasses.push(classes.red);
         }
         if (this.state.person.length <= 1) {
-            classes.push('bold');
+            assignedClasses.push(classes.bold);
         }
 
         const charList = this.state.userInput.split('').map((ch, index) => {
@@ -129,13 +110,13 @@ class App extends Component {
         });
 
     return (
-      <div className="App">
+        <div className={classes.App}>
             <h1>Hi, I'm a React App</h1>
-            <p className={classes.join(' ')}>This is really working!</p>
+            <p className={assignedClasses.join(' ')}>This is really working!</p>
             <h3><Validation len={this.state.length} /></h3>
             <input type='text' onChange={this.textLength} value={this.state.userInput} /><br /><br />
             {charList}
-            <button style={styles} onClick={this.togglePersonHandler}>Switch Button</button>
+            <button className={btnClass} onClick={this.togglePersonHandler}>Switch Button</button>
             {
                 persons
             }
@@ -144,4 +125,4 @@ class App extends Component {
   }
 }
 
-export default Radium(App);
+export default App;

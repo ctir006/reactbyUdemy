@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+.style{
+    '@media (min-width: 500px)': {
+        width: '450px'
+    };
+}
+
 .Paragraph {
     width: 60%;
     margin: auto;
@@ -19,4 +25,27 @@
 
 .bold{
     font-weight: bold;
+}
+
+.App button{
+    border: 1px solid blue;
+    padding: 16px;
+    background-color: green;
+    font: inherit;
+    color: white;
+    cursor: pointer;
+}
+
+.App button:hover{
+    background-color: lightgreen;
+    color: black;
+}
+
+.App button.Red {
+    background-color: red;
+}
+
+.App button.Red:hover {
+    background-color: salmon;
+    color: black;
 }
