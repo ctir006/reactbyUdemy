@@ -2,12 +2,6 @@
   text-align: center;
 }
 
-.style{
-    '@media (min-width: 500px)': {
-        width: '450px'
-    };
-}
-
 .Paragraph {
     width: 60%;
     margin: auto;
@@ -19,7 +13,13 @@
     margin-top: 5px;
 }
 
-.red{
+@media (min-width: 500px) {
+    .Paragraph {
+        width: 450px;
+    }
+}
+
+; .red {
     color: red;
 }
 
